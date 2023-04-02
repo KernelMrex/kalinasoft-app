@@ -43,7 +43,7 @@ final class UserService
         $userId = $this->userQueryService->findByEmailOrPhoneAndPassword(
             $loginData->getEmail(),
             $loginData->getPhone(),
-            $loginData->getHashedPassword()
+            $loginData->getPassword()
         );
         if (!$userId)
         {

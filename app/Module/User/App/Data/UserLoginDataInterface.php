@@ -9,5 +9,5 @@ interface UserLoginDataInterface
 
     public function getPhone(): ?string;
 
-    public function getHashedPassword(): string;
+    public function getPassword(): string;
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
+use Psy\Util\Json;
 
 class AuthController extends BaseController
 {
@@ -81,7 +82,7 @@ class AuthController extends BaseController
             $token = $this->userApi->loginUser(new UserLoginData(
                 $request->post('email'),
                 $request->post('phone'),
-                Hash::make($request->post('password')),
+                $request->post('password'),
             ));
 
             if (!$token)
@@ -92,8 +93,8 @@ class AuthController extends BaseController
             }
 
             return response()
-                ->header('Authorization', 'Bearer '.$token)
-                ->json([ 'success' => true ], HttpStatus::OK);
+                ->json([ 'success' => true ], HttpStatus::OK)
+                ->header('Authorization', 'Bearer '.$token);
         }
         catch (ValidationException $e)
         {

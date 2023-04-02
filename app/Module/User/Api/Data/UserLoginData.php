@@ -5,7 +5,7 @@ namespace App\Module\User\Api\Data;
 
 use App\Module\User\App\Data\UserLoginDataInterface;
 
-class UserLoginData implements UserLoginDataInterface
+final class UserLoginData implements UserLoginDataInterface
 {
     private ?string $email;
     private ?string $phone;
@@ -37,7 +37,7 @@ class UserLoginData implements UserLoginDataInterface
     /**
      * @return string
      */
-    public function getHashedPassword(): string
+    public function getPassword(): string
     {
         return $this->hashedPassword;
     }

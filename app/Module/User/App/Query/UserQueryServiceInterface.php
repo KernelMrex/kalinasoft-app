@@ -8,5 +8,5 @@ interface UserQueryServiceInterface
     /**
      * Returns id of user with these credentials
      */
-    public function findByEmailOrPhoneAndPassword(?string $email, ?string $phone, string $passwordHash): ?string;
+    public function findByEmailOrPhoneAndPassword(?string $email, ?string $phone, string $password): ?string;
 }
