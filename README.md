@@ -21,6 +21,17 @@ Content-Length: 66
 email=testov5%40test.com7&phone=%2B71234567894&password=Qwerty1%23
 ```
 
+### Получения страницы продуктов
+```http request
+GET /api/shop/products?page_num=0&page_size=40 HTTP/1.1
+Host: 127.0.0.1
+Authorization: Bearer <тут токен>
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 66
+
+email=testov5%40test.com7&phone=%2B71234567894&password=Qwerty1%23
+```
+
 ## Команды проекта
 ### Запуск контейнеров
 ```bash
