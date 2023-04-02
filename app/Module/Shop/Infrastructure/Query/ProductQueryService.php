@@ -6,6 +6,7 @@ namespace App\Module\Shop\Infrastructure\Query;
 use App\Module\Shop\App\Data\GetProductsDataInterface;
 use App\Module\Shop\App\Data\ProductListItem;
 use App\Module\Shop\App\Query\ProductQueryServiceInterface;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 final class ProductQueryService implements ProductQueryServiceInterface
@@ -19,11 +20,16 @@ final class ProductQueryService implements ProductQueryServiceInterface
             ->limit($params->getPageSize());
 
 
-        foreach ($params->getProperties() as $code => $value)
+        foreach ($params->getProperties() as $code => $values)
         {
             $query
                 ->where('product_property.code', '=', $code)
-                ->where('product_property.value', '=', $value);
+                ->where(function(Builder $query) use ($values): void {
+                    foreach ($values as $value)
+                    {
+                        $query->orWhere('product_property.value', '=', $value);
+                    }
+                });
         }
 
         $rows = $query->get()->all();

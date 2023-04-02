@@ -31,6 +31,7 @@ class ShopController extends BaseController
                 'page_num' => ['numeric', 'min:0'],
                 'page_size' => ['numeric', 'min:5', 'max:40'],
                 'properties' => ['array'],
+                'properties.*' => ['array'],
             ])->validate();
 
             $output = $this->shopApi->getProducts(new GetProductsInput(

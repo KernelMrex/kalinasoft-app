@@ -9,7 +9,7 @@ final class GetProductsInput implements GetProductsDataInterface
 {
     private int $pageNum;
     private int $pageSize;
-    /** @var array<string, mixed> */
+    /** @var array<string, array> */
     private array $properties;
 
     public function __construct(
@@ -33,7 +33,7 @@ final class GetProductsInput implements GetProductsDataInterface
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, array>
      */
     public function getProperties(): array
     {
