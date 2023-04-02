@@ -11,8 +11,17 @@ class TokenRepository implements TokenRepositoryInterface
 {
     public function findByValue(string $value): ?ModuleToken
     {
-        // TODO
-        return null;
+        $eloquentModel = EloquentToken::where('value', $value)->first();
+
+        if (!$eloquentModel)
+        {
+            return null;
+        }
+
+        return (new ModuleToken())
+            ->setId((string) $eloquentModel->id)
+            ->setValue($eloquentModel->value)
+            ->setUserId((string) $eloquentModel->user_id);
     }
 
     public function save(ModuleToken $token): void

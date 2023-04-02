@@ -13,4 +13,9 @@ interface ApiInterface
     public function registerUser(UserRegistrationData $registrationData): void;
 
     public function loginUser(UserLoginData $loginData): ?string;
+
+    /**
+     * Returns userId or null if not authorized
+     */
+    public function getUserIdByToken(string $token): ?string;
 }

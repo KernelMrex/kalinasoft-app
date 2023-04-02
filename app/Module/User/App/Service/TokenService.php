@@ -26,4 +26,10 @@ final class TokenService
         $this->tokenRepository->save($token);
         return $token;
     }
+
+    public function findUserIdByTokenValue(string $tokenValue): ?string
+    {
+        $token = $this->tokenRepository->findByValue($tokenValue);
+        return $token?->getUserId();
+    }
 }

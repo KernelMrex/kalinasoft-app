@@ -25,6 +25,6 @@ class UserModuleFactory
         $tokenService = new TokenService($tokenRepository, $tokenFactory);
         $userService = new UserService($userRepository, $userQueryService, $tokenService);
 
-        return new Api($userService);
+        return new Api($userService, $tokenService);
     }
 }
