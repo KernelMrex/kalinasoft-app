@@ -10,7 +10,6 @@ use App\Module\User\App\Repository\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
-
     public function findByID(string $id): ?ModuleUser
     {
         // TODO: Implement findByID() method.
@@ -18,8 +17,6 @@ class UserRepository implements UserRepositoryInterface
 
     public function save(ModuleUser $user): void
     {
-        /** @var EloquentUser|null $eloquentModel */
-        $eloquentModel = null;
         if ($user->getId() !== null)
         {
             $eloquentModel = EloquentUser::find((int) $user->getId());

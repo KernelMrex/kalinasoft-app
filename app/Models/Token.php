@@ -10,4 +10,5 @@ class Token extends Model
     use HasFactory;
 
     protected $table = 'token';
+    public $incrementing = true;
 }
