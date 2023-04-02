@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Module\User\Api;
 
+use App\Module\User\Api\Data\UserLoginData;
 use App\Module\User\Api\Data\UserRegistrationData;
 use App\Module\User\Api\Exception\ApiException;
 use App\Module\User\App\Exception\AppException;
@@ -22,6 +23,18 @@ final class Api implements ApiInterface
         try
         {
             $this->userService->registerUser($registrationData);
+        }
+        catch (AppException $exception)
+        {
+            throw new ApiException('internal error', 0, $exception);
+        }
+    }
+
+    public function loginUser(UserLoginData $loginData): ?string
+    {
+        try
+        {
+            return $this->userService->loginUser($loginData);
         }
         catch (AppException $exception)
         {

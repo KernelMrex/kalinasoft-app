@@ -7,4 +7,5 @@ final class HttpStatus
 {
     public const OK = 200;
     public const BAD_REQUEST = 400;
+    public const UNAUTHORIZED = 401;
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Common\HttpStatus;
 use App\Module\User\Api\ApiInterface as UserApiInterface;
+use App\Module\User\Api\Data\UserLoginData;
 use App\Module\User\Api\Data\UserRegistrationData;
 use App\Module\User\Api\Exception\ApiException;
 use App\Module\User\Infrastructure\Factory\UserModuleFactory;
@@ -64,6 +65,42 @@ class AuthController extends BaseController
                 'success' => false,
                 'errors' => [ 'internal' => 'internal error' ],
             ], HttpStatus::OK);
+        }
+    }
+
+    public function login(Request $request): JsonResponse
+    {
+        try
+        {
+            Validator::make($request->post(), [
+                'email' => ['required_without:phone', 'email'],
+                'phone' => ['required_without:email', 'regex:/^\+7\d{10}$/i'],
+                'password' => ['required', Password::min(6)->letters()->mixedCase()->numbers()->symbols()],
+            ])->validate();
+
+            $token = $this->userApi->loginUser(new UserLoginData(
+                $request->post('email'),
+                $request->post('phone'),
+                Hash::make($request->post('password')),
+            ));
+
+            if (!$token)
+            {
+                return response()->json([
+                    'success' => false,
+                ], HttpStatus::UNAUTHORIZED);
+            }
+
+            return response()
+                ->header('Authorization', 'Bearer '.$token)
+                ->json([ 'success' => true ], HttpStatus::OK);
+        }
+        catch (ValidationException $e)
+        {
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], HttpStatus::BAD_REQUEST);
         }
     }
 }
