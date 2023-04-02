@@ -23,13 +23,9 @@ email=testov5%40test.com7&phone=%2B71234567894&password=Qwerty1%23
 
 ### Получения страницы продуктов
 ```http request
-GET /api/shop/products?page_num=0&page_size=40&properties[color]=red HTTP/1.1
+GET /api/shop/products?page_num=0&page_size=40&properties[color][]=red&properties[color][]=white HTTP/1.1
 Host: 127.0.0.1
 Authorization: Bearer $2y$10$ipdSrL73NTKbAt184gGQGetNF1kJex1l96dBPB1BotQb/WtswL64i
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 66
-
-email=testov5%40test.com7&phone=%2B71234567894&password=Qwerty1%23
 ```
 
 ## Команды проекта
