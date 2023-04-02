@@ -30,11 +30,13 @@ class ShopController extends BaseController
             Validator::make($request->all(), [
                 'page_num' => ['numeric', 'min:0'],
                 'page_size' => ['numeric', 'min:5', 'max:40'],
+                'properties' => ['array'],
             ])->validate();
 
             $output = $this->shopApi->getProducts(new GetProductsInput(
                 (int) $request->get('page_num', 0),
                 (int) $request->get('page_size', 40),
+                (array) $request->get('properties', []),
             ));
 
             return response()->json([

@@ -8,4 +8,9 @@ interface GetProductsDataInterface
     public function getPageNum(): int;
 
     public function getPageSize(): int;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getProperties(): array;
 }

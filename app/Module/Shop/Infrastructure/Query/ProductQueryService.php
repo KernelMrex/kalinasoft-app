@@ -12,13 +12,21 @@ final class ProductQueryService implements ProductQueryServiceInterface
 {
     public function getProductList(GetProductsDataInterface $params): array
     {
-        $rows = DB::table('product')
+        $query = DB::table('product')
             ->select('product.id', 'product.title', 'product.amount', 'product_property.code', 'product_property.value')
             ->leftJoin('product_property', 'product.id', '=', 'product_property.product_id')
             ->offset($params->getPageSize() * $params->getPageNum())
-            ->limit($params->getPageSize())
-            ->get()
-            ->all();
+            ->limit($params->getPageSize());
+
+
+        foreach ($params->getProperties() as $code => $value)
+        {
+            $query
+                ->where('product_property.code', '=', $code)
+                ->where('product_property.value', '=', $value);
+        }
+
+        $rows = $query->get()->all();
 
         $products = [];
         foreach ($rows as $row)

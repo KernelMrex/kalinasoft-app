@@ -9,13 +9,17 @@ final class GetProductsInput implements GetProductsDataInterface
 {
     private int $pageNum;
     private int $pageSize;
+    /** @var array<string, mixed> */
+    private array $properties;
 
     public function __construct(
         int $pageNum,
-        int $pageSize
+        int $pageSize,
+        array $properties
     ) {
         $this->pageNum = $pageNum;
         $this->pageSize = $pageSize;
+        $this->properties = $properties;
     }
 
     public function getPageNum(): int
@@ -26,5 +30,13 @@ final class GetProductsInput implements GetProductsDataInterface
     public function getPageSize(): int
     {
         return $this->pageSize;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getProperties(): array
+    {
+        return $this->properties;
     }
 }
